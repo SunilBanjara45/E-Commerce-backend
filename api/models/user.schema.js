@@ -12,14 +12,15 @@ const userSchema = new mongoose.Schema(
             unique: true,
             index: true
         },
+        phoneNumber: {
+            type: Number,
+            required: true,
+        },
         otp: {
             type: String,
             required: true,
         },
-        phoneNumber: {
-            type: Number,
-            required: true,
-        }
+
     }
 )
 
