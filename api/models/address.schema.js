@@ -32,6 +32,9 @@ const addressSchema = new mongoose.Schema(
             ref:User,
             required:ture
         }
+    },
+    {
+        timestamps: true,
     }
 )
 
