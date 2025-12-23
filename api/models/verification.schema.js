@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const otpSchema = new mongoose.Schema(
+const verificationSchema = new mongoose.Schema(
     {
         phoneNumber: {
             type: Number,
@@ -9,6 +9,10 @@ const otpSchema = new mongoose.Schema(
         otp: {
             type: Number,
             required: ture
+        },
+        validTill:{
+            type:Date,
+            required:true
         }
     },
     {
@@ -17,4 +21,4 @@ const otpSchema = new mongoose.Schema(
     }
 )
 
-exports.module = mongoose.model('OTP', otpSchema)
+exports.module = mongoose.model('Verification', verificationSchema)
