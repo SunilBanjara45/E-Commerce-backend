@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const Router = require('./api/routes/route')
 const db = require('./config/db')
 db.connectDB()
 
@@ -8,6 +9,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.json())
 
+app.use('/api/v1', Router)
 
 app.get('/', (req, res) => {
     console.log("hello")

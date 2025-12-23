@@ -25,6 +25,8 @@
     "nodemon": "^3.1.11",
     "otp-generator": "^4.0.1",
     "path": "^0.12.7",
+    "trim-request": "^1.0.6",
+    "twilio": "^5.11.1",
     "url": "^0.11.4"
   }
 }

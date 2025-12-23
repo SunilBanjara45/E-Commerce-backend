@@ -1,73 +1,52 @@
-import { check } from "express-validator";
+const { check } = require("express-validator");
+const { validateRequest } = require("../utils/validateRequest");
+
 
 // signup validator
 exports.signupValidator = [
-    check('name')
-        .exists()
-        .withMessage('Name is required')
-        .not()
-        .isEmpty()
-        .withMessage('Name can not be empty')
-        .isAlphanumeric()
-        .withMessage('Name can not contain numbers'),
+  check("name")
+    .exists().withMessage("Name is required")
+    .notEmpty().withMessage("Name can not be empty")
+    .isAlpha().withMessage("Name can not contain numbers"),
 
-    check('phoneNumber')
-        .exists()
-        .withMessage('Phone Number is required')
-        .not()
-        .isEmpty()
-        .withMessage('Phone Number can not be empty')
-        .isMobilePhone()
-        .withMessage('Phone Number is Invalid'),
+  check("phoneNumber")
+    .exists().withMessage("Phone Number is required")
+    .notEmpty().withMessage("Phone Number can not be empty")
+    .isMobilePhone().withMessage("Phone Number is Invalid"),
 
-    (req, res, next) => validateRequest(req, res, next),
-]
+  validateRequest,
+];
 
 // login validator
 exports.loginValidator = [
-    check('phoneNumber')
-        .exists()
-        .withMessage("Phone Number is required")
-        .not()
-        .isEmpty()
-        .withMessage('Phone Number can not be empty')
-        .isMobilePhone()
-        .withMessage('Phone Number is Invalid'),
+  check("phoneNumber")
+    .exists().withMessage("Phone Number is required")
+    .notEmpty().withMessage("Phone Number can not be empty")
+    .isMobilePhone().withMessage("Phone Number is Invalid"),
 
-    (req, res, next) => validateRequest(req, res, next)
-]
+  validateRequest,
+];
 
-// sentOtp validator
+// sendOtp validator
 exports.sendOtpValidator = [
-    check('phoneNumber')
-        .exists()
-        .withMessage("Phone Number is required")
-        .not()
-        .isEmpty()
-        .withMessage('Phone Number can not be empty')
-        .isMobilePhone()
-        .withMessage('Phone Number is Invalid'),
+  check("phoneNumber")
+    .exists().withMessage("Phone Number is required")
+    .notEmpty().withMessage("Phone Number can not be empty")
+    .isMobilePhone().withMessage("Phone Number is Invalid"),
 
-    (req, res, next) => validateRequest(req, res, next)
-]
+  validateRequest,
+];
 
 // verifyOtp validator
 exports.verifyOtpValidator = [
-    check('otp')
-        .exists()
-        .withMessage('OTP is required')
-        .not()
-        .isEmpty()
-        .withMessage('OTP can not be empty')
-        .isLength({ min: 4, max: 4 })
-        .withMessage("Invalid OTP")
-        .isNumeric()
-        .withMessage('Invalid OTP'),
+  check("otp")
+    .exists().withMessage("OTP is required")
+    .notEmpty().withMessage("OTP can not be empty")
+    .isLength({ min: 4, max: 4 }).withMessage("Invalid OTP")
+    .isNumeric().withMessage("Invalid OTP"),
 
-    (req, res, next) => validateRequest(req, res, next)
-]
+  validateRequest,
+];
 
-// verifytoken validator
-exports.verifyTokenValidator = [
-    (req, res, next) => validateRequest(req, res, next)
-]
+// verifyToken validator
+exports.verifyTokenValidator = [validateRequest];

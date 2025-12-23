@@ -38,4 +38,4 @@ const addressSchema = new mongoose.Schema(
     }
 )
 
-exports.module = mongoose.model("Address", addressSchema)
+module.export = mongoose.model("Address", addressSchema)
