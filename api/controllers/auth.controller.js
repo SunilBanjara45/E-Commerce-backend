@@ -10,6 +10,7 @@ const sendOTP = require('../helpers/sendTextMessage')
 exports.signupController = async (req, res) => {
     try {
         const data = matchedData(req)
+        console.log("Data:", data)
         const existingUser = await User.findOne({ phoneNumber: data.phoneNumber })
         if (existingUser) {
             throw buildErrorObject(
@@ -19,11 +20,9 @@ exports.signupController = async (req, res) => {
         }
 
         await User.create(req)
-
         res.status(httpStatus.CREATED).json(buildResponse(httpStatus.httpStatus.CREATED, {
             message: 'User Created Successfully'
         }))
-
     }
     catch (err) {
         handleError(res, err)
@@ -34,7 +33,7 @@ exports.signupController = async (req, res) => {
 exports.sendOtpController = async (req, res) => {
     try {
         const data = matchedData(req)
-        const user = await User.findOne({ phoneNumber:phoneNumber})
+        const user = await User.findOne({ phoneNumber: phoneNumber })
 
         if (user?._id) {
             throw buildErrorObject(httpStatus.CONFLICT, "User Already Exists")
@@ -49,10 +48,9 @@ exports.sendOtpController = async (req, res) => {
 
         const validTill = new Date(new Date().getTime() + 30 * 60000)
 
+        const response = await sendOTP(data.phoneNumber, otp)
 
-       const response =  await sendOTP(data.phoneNumber , otp)
-
-       console.log('response:' , response)
+        console.log('response:', response)
 
         res
             .status(httpStatus.OK)
