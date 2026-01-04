@@ -6,12 +6,12 @@ const client = twilio(
   process.env.TWILIO_AUTH_TOKEN
 );
 
-async function sendOTP(phone) {
-  return await client.verify.v2
-    .services(process.env.TWILIO_VERIFY_SERVICE_SID)
-    .verifications.create({
-      to: phone,
-      channel: "sms",
-    });
+async function sendOTP(to, message) {
+  return await client.messages.create({
+    body: message,
+    from: process.env.TWILIO_PHONE_NUMBER,
+    to,
+  });
 }
-module.exports = sendOTP
+
+module.exports = sendOTP;

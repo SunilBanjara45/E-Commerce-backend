@@ -14,6 +14,12 @@ exports.signupValidator = [
     .notEmpty().withMessage("Phone Number can not be empty")
     .isMobilePhone().withMessage("Phone Number is Invalid"),
 
+  check("otp")
+    .exists().withMessage("OTP is required")
+    .notEmpty().withMessage("OTP can not be empty")
+    .isLength({ min: 4, max: 4 }).withMessage("Invalid OTP")
+    .isNumeric().withMessage("Invalid OTP"),
+
   validateRequest,
 ];
 
@@ -33,17 +39,6 @@ exports.sendOtpValidator = [
     .exists().withMessage("Phone Number is required")
     .notEmpty().withMessage("Phone Number can not be empty")
     .isMobilePhone().withMessage("Phone Number is Invalid"),
-
-  validateRequest,
-];
-
-// verifyOtp validator
-exports.verifyOtpValidator = [
-  check("otp")
-    .exists().withMessage("OTP is required")
-    .notEmpty().withMessage("OTP can not be empty")
-    .isLength({ min: 4, max: 4 }).withMessage("Invalid OTP")
-    .isNumeric().withMessage("Invalid OTP"),
 
   validateRequest,
 ];

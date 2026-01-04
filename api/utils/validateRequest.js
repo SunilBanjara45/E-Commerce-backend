@@ -9,9 +9,9 @@ const validateRequest = (req, res, next) => {
     validationResult(req).throw();
     next();
   } catch (error) {
-    return res.status(httpStatus.UNPROCESSABLE_ENTITY).json({
+    return res.status(httpStatus.status.UNPROCESSABLE_ENTITY).json({
       success: false,
-      code: httpStatus.UNPROCESSABLE_ENTITY,
+      code: httpStatus.status.UNPROCESSABLE_ENTITY,
       errors: error.array(), // ✅ better than ...error
     });
   }

@@ -8,7 +8,7 @@ const verificationSchema = new mongoose.Schema(
         },
         otp: {
             type: Number,
-            required: ture
+            required:true
         },
         validTill:{
             type:Date,
@@ -17,7 +17,6 @@ const verificationSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        expires: 30 * 5 * 60
     }
 )
 

@@ -17,5 +17,5 @@ exports.handleError = (res, err) => {
         response.code = err.code
     }
 
-    res.status(response.code).json(response)
+ return   res.status(response.code).json(response)
 }
