@@ -31,7 +31,7 @@ const productSchema = new mongoose.Schema(
                 value: String
             }
         ],
-        WarrantyInfo: [
+        warrantyInfo: [
             {
                 key: String,
                 value: String

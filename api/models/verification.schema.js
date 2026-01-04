@@ -10,10 +10,11 @@ const verificationSchema = new mongoose.Schema(
             type: Number,
             required:true
         },
-        validTill:{
+        createdAt:{
             type:Date,
-            required:true
-        }
+            default:Date.now,
+            expires:30*5*60
+        },
     },
     {
         timestamps: true,
