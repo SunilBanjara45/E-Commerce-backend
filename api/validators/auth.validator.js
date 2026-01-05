@@ -30,6 +30,11 @@ exports.loginValidator = [
     .notEmpty().withMessage("Phone Number can not be empty")
     .isMobilePhone().withMessage("Phone Number is Invalid"),
 
+  check("otp")
+    .exists().withMessage("OTP is required")
+    .notEmpty().withMessage("OTP can not be empty")
+    .isMobilePhone().withMessage("OTP is Invalid"),
+
   validateRequest,
 ];
 
@@ -42,6 +47,7 @@ exports.sendOtpValidator = [
 
   validateRequest,
 ];
+
 
 // product validator
 exports.productValidator = [

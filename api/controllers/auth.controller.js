@@ -162,6 +162,50 @@ exports.loginController = async (req, res) => {
     }
 }
 
+// sendOtpLoginController
+exports.sendOtpLoginController = async (req, res) => {
+    try {
+        const data = matchedData(req)
+        const phoneNumber = `+91${data.phoneNumber}`
+        const existingUser = await User.findOne({ phoneNumber })
+
+        if (!existingUser?._id) {
+            throw buildErrorObject(
+                httpStatus.status.BAD_REQUEST,
+                'User does not exist'
+            )
+        }
+
+        const otp = otpGenerator.generate(4, {
+            lowerCaseAlphabets: false,
+            upperCaseAlphabets: false,
+            specialChars: false,
+            digits: true,
+        })
+
+        const validTill = new Date(new Date().getTime() + 30 * 60000)
+
+        const response = await sendOTP(data.phoneNumber, otp)
+
+        console.log('response:', response)
+
+        res.status(httpStatus.status.OK)
+            .json(buildResponse(httpStatus.status.OK, response, { message: "OTP_SENT" }))
+
+        await Verification.updateOne(
+            { phoneNumber: data.phoneNumber },
+            {
+                otp: otp,
+                validTill: validTill,
+            },
+            { upsert: true }
+        )
+    }
+    catch (err) {
+        handleError(res, err)
+    }
+}
+
 // verify token Controller
 exports.verifyToken = async (req, res) => {
     try {

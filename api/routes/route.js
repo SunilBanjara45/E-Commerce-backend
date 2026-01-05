@@ -1,5 +1,5 @@
 const express = require('express')
-const { signupController, sendOtpController } = require('../controllers/auth.controller')
+const { signupController, sendOtpController, sendOtpLoginController } = require('../controllers/auth.controller')
 const trimRequest = require('trim-request')
 const { signupValidator, sendOtpValidator, productValidator } = require('../validators/auth.validator')
 const { productController } = require('../controllers/product.controller')
@@ -18,6 +18,20 @@ Router.post(
     trimRequest.all,
     sendOtpValidator,
     sendOtpController
+)
+
+Router.post(
+    '/sent-loginOtp',
+    trimRequest.all,
+    sendOtpValidator,
+    sendOtpLoginController,
+)
+
+Router.post(
+    '/login',
+    trimRequest.all,
+    loginValidator,
+    loginController,
 )
 
 Router.post(
