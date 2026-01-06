@@ -48,7 +48,6 @@ exports.sendOtpValidator = [
   validateRequest,
 ];
 
-
 // product validator
 exports.productValidator = [
   check('productName')
@@ -82,7 +81,7 @@ exports.productValidator = [
     .notEmpty().withMessage("Warranty Info can not be empty"),
 ]
 
-// cart validator
+// Cart validator
 exports.cartValidator = [
   check("productId")
     .exists().withMessage("ProductId is required")
@@ -95,6 +94,31 @@ exports.cartValidator = [
 
   validateRequest,
 ];
+
+// deleteFromCart validator
+exports.deleteFromCartValidator = [
+  check("productId")
+    .exists().withMessage("ProductId is required")
+    .notEmpty().withMessage("productId can not be empty"),
+
+  validateRequest,
+];
+
+// updateCart validator
+exports.updateCartValidator = [
+  check("productId")
+    .exists().withMessage("ProductId is required")
+    .notEmpty().withMessage("productId can not be empty"),
+
+  check("quantity")
+    .exists().withMessage("Quantity is required")
+    .notEmpty().withMessage("Quantity can not be empty")
+    .isNumeric().withMessage("Quantity is invalid"),
+
+  validateRequest,
+];
+
+
 
 // verifyToken validator
 exports.verifyTokenValidator = [validateRequest];
