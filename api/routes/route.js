@@ -1,9 +1,10 @@
 const express = require('express')
 const { signupController, sendOtpController, sendOtpLoginController } = require('../controllers/auth.controller')
 const trimRequest = require('trim-request')
-const { signupValidator, sendOtpValidator, productValidator } = require('../validators/auth.validator')
+const { signupValidator, sendOtpValidator, productValidator, updateCartValidator } = require('../validators/auth.validator')
 const { productController } = require('../controllers/product.controller')
-const { addToCart } = require('../controllers/cart.controller')
+const { addToCart, updateCartController } = require('../controllers/cart.controller')
+const { addToWishlistController, deleteFromWishlistController, clearWishlistController } = require('../controllers/wishlist.controller')
 const Router = express.Router()
 
 Router.post(
@@ -34,6 +35,7 @@ Router.post(
     loginController,
 )
 
+// product
 Router.post(
     '/product',
     trimRequest.all,
@@ -41,6 +43,7 @@ Router.post(
     productController
 )
 
+// Cart
 Router.post(
     '/addToCart',
     trimRequest.all,
@@ -48,5 +51,39 @@ Router.post(
     addToCart
 )
 
+Router.post(
+    '/update-cart',
+    trimRequest.all,
+    updateCartValidator,
+    updateCartController
+)
+
+// Wishlist
+Router.post(
+    '/addToWishlist',
+    trimRequest.all,
+    wishlistValidator,
+    addToWishlistController
+)
+
+Router.post(
+    '/deleteItemFromWishlist',
+    trimRequest.all,
+    wishlistValidator,
+    deleteFromWishlistController
+)
+
+Router.post(
+    '/deleteItemFromWishlist',
+    trimRequest.all,
+    wishlistValidator,
+    deleteFromWishlist
+)
+
+Router.post(
+    '/clearWishlist',
+    trimRequest.all,
+    clearWishlistController
+)
 
 module.exports = Router

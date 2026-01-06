@@ -8,10 +8,10 @@ const { handleError } = require('../utils/handleError')
 require('dotenv').config()
 
 // Add to cart
-exports.addToCart = async (req, res) => {
+exports.addToCartController = async (req, res) => {
     try {
         const data = matchedData(req)
-        const userId = req.userId
+        const userId = req.user.userId
 
         const response = await Cart.create({ data, userId })
         console.log("Response", response)
@@ -25,46 +25,46 @@ exports.addToCart = async (req, res) => {
 }
 
 // Delete from cart
-exports.deleteFromCart = async (req, res) => {
-    try {
-        const { productId } = matchedData(req)
-        const userId = req.userId
+// exports.deleteFromCart = async (req, res) => {
+//     try {
+//         const { productId } = matchedData(req)
+//         const userId = req.userId
 
-        if (!productId) {
-            throw buildErrorObject(
-                httpStatus.status.BAD_REQUEST,
-                "ProductId is required"
-            )
-        }
-        const deleteCartItem = await Cart.findOneAndDelete(userId, { productId })
+//         if (!productId) {
+//             throw buildErrorObject(
+//                 httpStatus.status.BAD_REQUEST,
+//                 "ProductId is required"
+//             )
+//         }
+//         const deleteCartItem = await Cart.findOneAndDelete(userId, { productId })
 
-        if (!deleteCartItem) {
-            throw buildErrorObject(
-                httpStatus.status.NOT_FOUND,
-                "Product not found"
-            )
-        }
+//         if (!deleteCartItem) {
+//             throw buildErrorObject(
+//                 httpStatus.status.NOT_FOUND,
+//                 "Product not found"
+//             )
+//         }
 
-        res.status(httpStatus.status.OK)
-            .json(
-                buildResponse(httpStatus.status.OK,
-                    {
-                        cart: updateCart,
-                        message: "Product deleted from cart"
-                    }
-                )
-            )
-    }
-    catch (err) {
-        handleError(res, err)
-    }
-}
+//         res.status(httpStatus.status.OK)
+//             .json(
+//                 buildResponse(httpStatus.status.OK,
+//                     {
+//                         cart: updateCart,
+//                         message: "Product deleted from cart"
+//                     }
+//                 )
+//             )
+//     }
+//     catch (err) {
+//         handleError(res, err)
+//     }
+// }
 
 // update cart
-exports.updateCart = async (req, res) => {
+exports.updateCartController = async (req, res) => {
     try {
         const { productId, quantity } = matchedData(req)
-        const userId = req.userId
+        const userId = req.user.userId
 
         if (!productId || !quantity) {
             throw buildErrorObject(
@@ -72,6 +72,15 @@ exports.updateCart = async (req, res) => {
                 "ProductId and Quantity are required"
             )
         }
+        if (quantity === 0) {
+            await Cart.findOneAndDelete({
+                userId,
+                productId
+            })
+            res.status(httpStatus.status.OK)
+            .json(buildResponse(httpStatus.status.OK, {message:"Product removed from cart"}))
+        }
+
         const updateCartItem = await Cart.findOneAndUpdate(
             {
                 userId,

@@ -93,16 +93,7 @@ exports.cartValidator = [
     .isNumeric().withMessage('Quantity is invalid'),
 
   validateRequest,
-];
-
-// deleteFromCart validator
-exports.deleteFromCartValidator = [
-  check("productId")
-    .exists().withMessage("ProductId is required")
-    .notEmpty().withMessage("productId can not be empty"),
-
-  validateRequest,
-];
+];  
 
 // updateCart validator
 exports.updateCartValidator = [
@@ -118,6 +109,14 @@ exports.updateCartValidator = [
   validateRequest,
 ];
 
+// wishlist validator
+exports.wishlistValidator = [
+  check("productId")
+    .exists().withMessage("ProductId is required")
+    .notEmpty().withMessage("productId can not be empty"),
+
+  validateRequest,
+];
 
 
 // verifyToken validator
