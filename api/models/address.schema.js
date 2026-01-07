@@ -5,7 +5,7 @@ const addressSchema = new mongoose.Schema(
     {
         fullname:{
             type:String,
-            required:ture
+            required:true
         },
         phoneNumber:{
             type:String,
@@ -30,7 +30,7 @@ const addressSchema = new mongoose.Schema(
         userId:{
             type:mongoose.Schema.Types.ObjectId,
             ref:User,
-            required:ture
+            required:true
         },
         isDefault:{
             type:Boolean,

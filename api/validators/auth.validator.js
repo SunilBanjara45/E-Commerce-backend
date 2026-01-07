@@ -185,5 +185,27 @@ exports.userValidator = [
   validateRequest,
 ]
 
+// profile validator
+exports.profileValidator = [
+  check('name')
+    .exists().withMessage('Name is required')
+    .notEmpty().withMessage('Name can not be empty')
+    .isAlpha().withMessage('Name is invalid'),
+
+  check('email')
+    .exists().withMessage('Email is required')
+    .notEmpty().withMessage('Email can not empty')
+    .isEmail().withMessage('Email is invalid'),
+
+  check('profileImage')
+    .exists().withMessage('Profile Image is required')
+    .notEmpty().withMessage('Profile Image can not be empty'),
+
+  check("phoneNumber")
+    .exists().withMessage("Phone number is required")
+    .notEmpty().withMessage("Phone number can not be empty")
+    .isNumeric().withMessage("Phone number is invalid"),
+
+]
 // verifyToken validator
 exports.verifyTokenValidator = [validateRequest];
