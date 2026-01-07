@@ -1,5 +1,6 @@
 const { check } = require("express-validator");
 const { validateRequest } = require("../utils/validateRequest");
+const { exists } = require("../models/user.schema");
 
 
 // signup validator
@@ -93,7 +94,7 @@ exports.cartValidator = [
     .isNumeric().withMessage('Quantity is invalid'),
 
   validateRequest,
-];  
+];
 
 // updateCart validator
 exports.updateCartValidator = [
@@ -118,6 +119,71 @@ exports.wishlistValidator = [
   validateRequest,
 ];
 
+// add address validator
+exports.addressValidator = [
+  check('fullname')
+    .exists().withMessage('Fullname is required')
+    .notEmpty().withMessage('Fullname can not be empty')
+    .isAlpha().withMessage('Fullname is invalid'),
+
+  check("phoneNumber")
+    .exists().withMessage("Phone number is required")
+    .notEmpty().withMessage("Phone number can not be empty")
+    .isNumeric().withMessage("Phone number is invalid"),
+
+  check("pincode")
+    .exists().withMessage("Pincode is required")
+    .notEmpty().withMessage("Pincode can not be empty")
+    .isNumeric().withMessage("Pincode is invalid"),
+
+  check('addressLine')
+    .exists().withMessage('AddressLine is required')
+    .notEmpty().withMessage('AddressLine can not be empty'),
+
+  check('city')
+    .exists().withMessage('City is required')
+    .notEmpty().withMessage('City can not be empty')
+    .isAlpha().withMessage('City is invalid'),
+
+  check('state')
+    .exists().withMessage('State is required')
+    .notEmpty().withMessage('State can not be empty')
+    .isAlpha().withMessage('State is invalid'),
+
+  check('isDefault')
+    .isBoolean().withMessage('Default address is invalid'),
+
+  validateRequest,
+]
+
+// delete address validator
+exports.deleteAddressValidator = [
+  check(productId)
+    .exists().withMessage("Product id is required")
+    .notEmpty().withMessage("Product id can not be empty"),
+
+  validateRequest,
+]
+
+// user validator
+exports.userValidator = [
+  check('name')
+    .exists().withMessage('Name is required')
+    .notEmpty().withMessage('Name can not be empty')
+    .isAlpha().withMessage('Name is invalid'),
+
+  check("phoneNumber")
+    .exists().withMessage("Phone number is required")
+    .notEmpty().withMessage("Phone number can not be empty")
+    .isNumeric().withMessage("Phone number is invalid"),
+
+  check("otp")
+    .exists().withMessage("OTP is required")
+    .notEmpty().withMessage("OTP can not be empty")
+    .isNumeric().withMessage("OTP is invalid"),
+
+  validateRequest,
+]
 
 // verifyToken validator
 exports.verifyTokenValidator = [validateRequest];

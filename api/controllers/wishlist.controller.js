@@ -39,7 +39,7 @@ exports.deleteFromWishlistController = async (req, res) => {
 
         if (!deleteItem) {
             buildErrorObject(
-                httpStatus.status.BAD_REQUEST,
+                httpStatus.status.NOT_FOUND,
                 'Product not found in wishlist'
             )
         }

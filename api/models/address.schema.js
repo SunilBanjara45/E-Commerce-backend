@@ -31,6 +31,10 @@ const addressSchema = new mongoose.Schema(
             type:mongoose.Schema.Types.ObjectId,
             ref:User,
             required:ture
+        },
+        isDefault:{
+            type:Boolean,
+            default:false
         }
     },
     {
