@@ -6,12 +6,12 @@ const wishlistSchema = new mongoose.Schema(
     {
         productId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: Product,
+            ref: 'Product',
             required: ture,
         },
         userId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: User,
+            ref: 'User',
             required: ture
         }
     },

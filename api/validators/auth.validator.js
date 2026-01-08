@@ -207,8 +207,6 @@ exports.profileValidator = [
     .isNumeric().withMessage("Phone number is invalid"),
 
 ]
-// verifyToken validator
-exports.verifyTokenValidator = [validateRequest];
 
 // order validator
 exports.orderValidator = [
@@ -248,3 +246,14 @@ exports.orderValidator = [
 
   validateRequest,
 ]
+
+// delete order
+exports.deleteOrderValidator = [
+  check('orderId')
+  .exists().withMessage('Order Id is required')
+  .notEmpty().withMessage('Order Id can not be empty')
+  .isNumeric().withMessage('Order Id is invalid')
+]
+
+// verifyToken validator
+exports.verifyTokenValidator = [validateRequest];
